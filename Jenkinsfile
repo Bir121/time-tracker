@@ -12,7 +12,7 @@ pipeline {
             post {
                 success {
                     echo 'Archiving the artifacts'
-                    archiveArtifacts artifacts: '*/target/.war'
+                    archiveArtifacts artifacts: '**/web/target/*.war'
                 }
             }
         }
@@ -20,7 +20,7 @@ pipeline {
         stage ('Deployments'){
                     steps {
                        sshagent(['tomcat']) {
-       sh "scp -v -o StrictHostKeyChecking=no */target/.war ec2-user@35.154.116.110:/opt/tomcat/webapps"
+       sh "scp -v -o StrictHostKeyChecking=no **/web/target/*.war ec2-user@35.154.116.110:/opt/tomcat/webapps"
 
 }
                     }
